@@ -21,21 +21,41 @@ class EnigmaTest < Minitest::Test
     actual = enigma.encrypt("hello world")[:key].length
     assert_equal expected, actual
 
-    # Possible spot for mock/stubs
     expected = "#{time.month}#{time.day}#{time.year}".rjust(8,"0")
     actual = enigma.encrypt("hello world")[:date]
     assert_equal expected, actual
   end
 
-  def test_encrypting_message
+  def test_encrypting_message_and_outputting_hash
     enigma = Enigma.new
-    time = mock
-    time.stubs
 
-    expected = {:encryption=>"wugtcprwfaz", :key=>"09434", :date=>"04112019"}
-    actual = enigma.encrypt("hello world")
+    expected = {:encryption=>"omxmvhhpytp", :key=>"03581", :date=>"12301991"}
+    actual = enigma.encrypt("hello world", "03581", "12301991")
     assert_equal expected, actual
   end
 
+  def test_a_shift_generates_shifted_alphabet
+    enigma = Enigma.new
+
+    expected = ["h", "i", "j", "k", "l"]
+    actual = enigma.a_shift("53889", "03122012")[0..4]
+    assert_equal expected, actual
+  end
+
+  def test_date_converted_to_four_digit_key
+    enigma = Enigma.new
+
+    expected = "2009"
+    actual = enigma.last_four("04272003")
+    assert_equal expected, actual
+  end
+
+  def test_message_encryption
+    enigma = Enigma.new
+
+    expected = "yuybeinrxpoaeutlcezni"
+    actual = enigma.shift_message("test this is encypted", "84332", "08231998")
+    assert_equal expected, actual
+  end
 
 end
