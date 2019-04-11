@@ -29,9 +29,10 @@ class EnigmaTest < Minitest::Test
 
   def test_encrypting_message
     enigma = Enigma.new
-    time = Time.new
+    time = mock
+    time.stubs
 
-    expected = 5
+    expected = {:encryption=>"wugtcprwfaz", :key=>"09434", :date=>"04112019"}
     actual = enigma.encrypt("hello world")
     assert_equal expected, actual
   end
