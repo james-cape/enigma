@@ -29,8 +29,12 @@ class EnigmaTest < Minitest::Test
   def test_encrypting_message_and_outputting_hash
     enigma = Enigma.new
 
-    expected = {:encryption=>"omxmvhhpytp", :key=>"03581", :date=>"12301991"}
-    actual = enigma.encrypt("hello world", "03581", "12301991")
+    expected = {
+      encryption: "keder ohulw",
+      key: "02715",
+      date: "040895"
+     }
+    actual = enigma.encrypt("hello world", "02715", "040895")
     assert_equal expected, actual
   end
 
@@ -54,7 +58,15 @@ class EnigmaTest < Minitest::Test
     enigma = Enigma.new
 
     expected = "yuybeinrxpoaeutlcezni"
-    actual = enigma.shift_message("test this is encypted", "84332", "08231998")
+    actual = enigma.encrypt_message("test this is encypted", "84332", "08231998")
+    assert_equal expected, actual
+  end
+
+  def test_message_decryption
+    enigma = Enigma.new
+
+    expected = "test this is encypted"
+    actual = enigma.decrypt_message("yuybeinrxpoaeutlcezni", "84332", "08231998")
     assert_equal expected, actual
   end
 
