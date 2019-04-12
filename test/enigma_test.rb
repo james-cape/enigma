@@ -26,7 +26,7 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_encrypting_message_and_outputting_hash
+  def test_encrypting_message_with_user_input_key_and_date
     enigma = Enigma.new
 
     expected = {
@@ -35,6 +35,18 @@ class EnigmaTest < Minitest::Test
       date: "040895"
      }
     actual = enigma.encrypt("hello world", "02715", "040895")
+    assert_equal expected, actual
+  end
+
+  def test_encrypting_message_with_user_input_key_and_todays_date
+    enigma = Enigma.new
+
+    expected = {
+      encryption: "keder ohulw",
+      key: "02715",
+      date: "040895"
+     }
+    actual = enigma.decrypt(encrypted[:encryption], "02715")
     assert_equal expected, actual
   end
 
