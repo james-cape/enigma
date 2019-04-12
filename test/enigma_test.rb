@@ -21,7 +21,7 @@ class EnigmaTest < Minitest::Test
     actual = enigma.encrypt("hello world")[:key].length
     assert_equal expected, actual
 
-    expected = "#{time.month}#{time.day}#{time.year}".rjust(8,"0")
+    expected = "#{time.day}#{time.month}#{time.year}".rjust(8,"0")
     actual = enigma.encrypt("hello world")[:date]
     assert_equal expected, actual
   end

@@ -5,7 +5,8 @@ class Enigma
 
   def initialize
     time = Time.new
-    @today = "#{time.month}#{time.day}#{time.year}".rjust(8,"0")
+    # Switch DD and MM?????????????
+    @today = "#{time.day}#{time.month}#{time.year}".rjust(8,"0")
     @random_key = 5.times.map{rand(10)}.join
     @raw_alphabet = ("a".."z").to_a << " "
   end
