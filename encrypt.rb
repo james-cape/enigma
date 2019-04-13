@@ -2,13 +2,11 @@ require './lib/enigma'
 require 'pry'
 
 enigma = Enigma.new
-time = Time.new
+# time = Time.new
 
 puts "Enter file name to encrypt: "
 
-# raw_file = gets.chomp
 # message.txt
-
 raw_lines = File.read(gets.chomp).split("\n")
 
 encrypted_text = ""
@@ -29,11 +27,14 @@ puts "Enter the file name to write the encryption to: "
 # encryption_file = gets.chomp
 # encrypted.txt
 
-encrypted_file = File.open(gets.chomp, "w")
+
+encrypted_file_name = gets.chomp
+encrypted_file = File.open(encrypted_file_name, "w")
 # binding.pry
 
 encrypted_file.write(encrypted_text)
 
 # binding.pry
 
-puts "Created 'encrypted.txt' with the key 82648 and date 240818"
+puts "Created '#{encrypted_file_name}' with the key #{enigma.random_key} and date #{enigma.today}"
+# binding.pry
