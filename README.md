@@ -27,7 +27,8 @@ The `decrypt` method returns a hash with three keys:
 ​
 ## Interaction Pattern
 The `Enigma` class should respond to the following interaction pattern:
-```
+
+
 pry(main)> require 'date'
 #=> true
 ​
@@ -66,20 +67,22 @@ pry(main) > enigma.decrypt(encrypted[:encryption], "02715")
 # encrypt a message (generates random key and uses today's date)
 pry(main)> enigma.encrypt("hello world")
 #=> # encryption hash here
-```
+
+
 ## Command Line Interface
 Add a command line interface for encryption and decryption. You should create a Runner file called `encrypt.rb` that takes two command line arguments. The first is an existing file that contains a message to encrypt. The second is a file where your program should write the encrypted message. In addition to writing the encrypted message to the file, your program should output to the screen the file it wrote to, the key and the date.
 ​
 Additionally, you should create a Runner file called `decrypt.rb` that takes four command line arguments. The first is an existing file that contains an encrypted message. The second is a file where your program should write the decrypted message. The third is the key to be used for decryption. The fourth is the date to be used for decryption. In addition to writing the decrypted message to the file, your program should output to the screen the file it wrote to, the key used for decryption, and the date used for decryption.
 ​
 You should be able to use your CLI like this:
-```
+
+
 $ ruby ./lib/encrypt.rb message.txt encrypted.txt
 Created 'encrypted.txt' with the key 82648 and date 240818
 $ ruby ./lib/decrypt.rb encrypted.txt decrypted.txt 82648 240818
 Created 'decrypted.txt' with the key 82648 and date 240818
 See this Lesson Plan for more info about working with files.
-```
+
 **You do not have to test your command line interface**
 ​
 **Useful Methods**
@@ -98,7 +101,7 @@ The `crack` method decrypts a message without being given the key. This method c
 We believe that each enemy message ends with the characters `" end"`. Use this to crack the encryption.
 ​
 The `Enigma` class should now respond to the following interaction pattern:
-```
+
 pry(main)> require 'date'
 #=> true
 ​
@@ -133,15 +136,15 @@ pry(main)> enigma.crack("vjqtbeaweqihssi")
 #   date: # todays date in the format DDMMYY,
 #   key: # key used for encryption
 #  }
-```
+
 ### Cracking Interface
 Additionally, create a Runner file called crack.rb that takes three command line arguments. The first is an existing file that contains an encrypted message. The second is a file where your program should write the cracked message. The third is the date to be used for cracking. In addition to writing the cracked message to the file, your program should output to the screen the file it wrote to, the key used for cracking, and the date used for cracking:
-```
+
 $ ruby ./lib/encrypt.rb message.txt encrypted.txt
 Created 'encrypted.txt' with the key 82648 and date 240818
 $ ruby ./lib/crack.rb encrypted.txt cracked.txt 240818
 Created 'cracked.txt' with the cracked key 82648 and date 240818
-```
+
 # Enigma - Encryption Algorithm
 ​
 The encryption is based on the Caesar Cipher. The idea is that we can translate a character by shifting it a certain number of places down the alphabet. For more on the Caesar cipher, See This Description or the Wikipedia Page
@@ -178,16 +181,16 @@ The offsets are found using the date of transmission.
 Let’s say we are trying to encrypt the message "hello world".
 ​
 Using the previous examples, the keys are 02, 27, 71, 15 and the offsets are 1, 0, 2, 5. So the final shifts would be:
-```
+
 A: 3
 B: 27
 C: 73
 D: 20
-```
+
 Our character set is the alphabet and a space like this:
-```
+
 ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "]
-```
+
 If we are trying to encrypt “hello world”, the first character (“h”) is shifted by the A shift (3). So “h” becomes “k”.
 ​
 The second character (“e”) is shifted by the B shift (27). Since there are 27 characters in our set, shifting by 27 gets us back to where we started, so “e” becomes “e”.

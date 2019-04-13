@@ -21,16 +21,64 @@ class EnigmaTest < Minitest::Test
     actual = enigma.encrypt("hello world")[:key].length
     assert_equal expected, actual
 
-    expected = "#{time.month}#{time.day}#{time.year}".rjust(8,"0")
+    expected = "041219"
     actual = enigma.encrypt("hello world")[:date]
     assert_equal expected, actual
   end
 
-  def test_encrypting_message_and_outputting_hash
+  def test_encrypting_message_with_user_input_key_and_date
     enigma = Enigma.new
 
-    expected = {:encryption=>"omxmvhhpytp", :key=>"03581", :date=>"12301991"}
-    actual = enigma.encrypt("hello world", "03581", "12301991")
+    expected = {
+      encryption: "keder ohulw",
+      key: "02715",
+      date: "040895"
+     }
+    actual = enigma.encrypt("hello world", "02715", "040895")
+    assert_equal expected, actual
+  end
+
+  def test_encrypting_message_with_user_input_key_but_todays_date
+    enigma = Enigma.new
+
+    expected = {
+      :encryption=>"onhavisdyu ",
+      :key=>"02715",
+      :date=>"041219"
+    }
+    actual = enigma.encrypt("hello world", "02715")
+    assert_equal expected, actual
+  end
+
+  def test_decrypting_message_with_user_input_key_and_todays_date
+    enigma = Enigma.new
+    encrypted = enigma.encrypt("hello world", "02715")
+    expected = {
+      :decryption=>"hello world",
+      :key=>"02715",
+      :date=>"041219"
+    }
+    actual = enigma.decrypt(encrypted[:encryption], "02715")
+    assert_equal expected, actual
+  end
+
+  def test_encrypting_message_with_random_key_and_todays_date
+    enigma = Enigma.new
+
+    expected = 11
+    actual = enigma.encrypt("hello world")[:encryption].length
+    assert_equal expected, actual
+
+    expected = "hello world"
+    actual = enigma.encrypt("hello world")[:encryption]
+    refute_equal expected, actual
+
+    expected = 5
+    actual = enigma.encrypt("hello world")[:key].length
+    assert_equal expected, actual
+
+    expected = 6
+    actual = enigma.encrypt("hello world")[:date].length
     assert_equal expected, actual
   end
 
@@ -45,8 +93,8 @@ class EnigmaTest < Minitest::Test
   def test_date_converted_to_four_digit_key
     enigma = Enigma.new
 
-    expected = "2009"
-    actual = enigma.last_four("04272003")
+    expected = "6209"
+    actual = enigma.last_four("042703")
     assert_equal expected, actual
   end
 
@@ -54,7 +102,15 @@ class EnigmaTest < Minitest::Test
     enigma = Enigma.new
 
     expected = "yuybeinrxpoaeutlcezni"
-    actual = enigma.shift_message("test this is encypted", "84332", "08231998")
+    actual = enigma.encrypt_message("test this is encypted", "84332", "08231998")
+    assert_equal expected, actual
+  end
+
+  def test_message_decryption
+    enigma = Enigma.new
+
+    expected = "test this is encypted"
+    actual = enigma.decrypt_message("yuybeinrxpoaeutlcezni", "84332", "08231998")
     assert_equal expected, actual
   end
 
