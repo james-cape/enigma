@@ -29,9 +29,11 @@ puts "Enter the file name to write the encryption to: "
 # encryption_file = gets.chomp
 # encrypted.txt
 
-encrypted_file = File.new(gets.chomp)
+encrypted_file = File.open(gets.chomp, "w")
+# binding.pry
 
-File.write(encrypted_file, encrypted_text)
+encrypted_file.write(encrypted_text)
+
 # binding.pry
 
 puts "Created 'encrypted.txt' with the key 82648 and date 240818"
