@@ -4,18 +4,22 @@ class Enigma
               :random_key
 
   def initialize
-    time = Time.new
-    # Switch DD and MM?????????????
-    @today = "#{time.day}#{time.month}#{time.year}".rjust(8,"0")
+    @today = Time.new.strftime("%m%d%y")
     @random_key = 5.times.map{rand(10)}.join
     @raw_alphabet = ("a".."z").to_a << " "
   end
 
-
   def encrypt(message, key = random_key, date = today)
     components = Hash.new(0)
-
     components[:encryption] = encrypt_message(message, key, date)
+    components[:key] = key
+    components[:date] = date
+    components
+  end
+
+  def decrypt(message, key = random_key, date = today)
+    components = Hash.new(0)
+    components[:decryption] = decrypt_message(message, key, date)
     components[:key] = key
     components[:date] = date
     components
