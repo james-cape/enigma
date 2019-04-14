@@ -35,29 +35,34 @@ class CipherTest < Minitest::Test
   def test_cipher_extracts_last_four_from_date
     cipher = Cipher.new
 
-    expected = "5561"
-    actual = cipher.last_four("130419")
+    expected = "1025"
+    actual = cipher.last_four("040895")
     assert_equal expected, actual
   end
 
   def test_cipher_creates_shifted_alphabet
     cipher = Cipher.new
 
-    expected = ["k", "l", "m", "n", "o"]
-    actual = cipher.shift("05354", "130419", 0)[0..4]
+    expected = ["d", "e", "f", "g", "h"]
+    actual = cipher.shift("02715", "040895", 0)[0..4]
     assert_equal expected, actual
   end
 
-  # def test_cipher_transforms_message
-  #   cipher = Cipher.new
-  #   # message = "tryout"
-  #   # key = 06590
-  #   # date = 130419
-  #
-  #   expected = "asb"
-  #   actual = cipher.encrypt_shift("tryout", "05643", "130419", 0)
-  #   assert_equal expected, actual
-  # end
+  def test_cipher_encrypts_string_by_position
+    cipher = Cipher.new
+
+    expected = "kellr would"
+    actual = cipher.encrypt_message("hello world", "02715", "040895", 0)
+    assert_equal expected, actual
+  end
+
+  def test_cipher_decrypts_string_by_position
+    cipher = Cipher.new
+
+    expected = "hello world"
+    actual = cipher.decrypt_message("kellr would", "02715", "040895", 0)
+    assert_equal expected, actual
+  end
 
 
 
