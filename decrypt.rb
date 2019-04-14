@@ -1,4 +1,30 @@
-#runner file
+require './lib/enigma'
+require 'pry'
+
+enigma = Enigma.new
+
+puts "Enter file name to decrypt: "
+
+# encrypted.txt
+scrambled_lines = File.read(encrypted.txt).split("\n")
+
+decrypted_text = ""
+scrambled_lines.each do |line|
+  decrypted_text += enigma.encrypt(line)[:encryption] + "\n"
+end
+decrypted_text.chomp!
+
+
+puts "Enter the file name to write the decryption to: "
+
+# decrypted.txt
+decrypted_file_name = gets.chomp
+decrypted_file = File.open(decrypted_file_name, "w")
+
+decrypted_file.write(decrypted_text)
+
+puts "Created '#{decrypted_file_name}' with the key #{enigma.random_key} and date #{enigma.today}"
+
 
 # Takes four command line args:
 
@@ -11,14 +37,6 @@
 # Key used for decryption.
 # Date used for decryption.
 
-puts "Enter file name to decrypt: "
-
-encryption_file = gets.chomp
-# encrypted.txt
-
-
-
-puts "Enter the file name to write the decryption to: "
 
 decryption_file = gets.chomp
 # decrypted.txt
