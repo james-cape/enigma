@@ -94,8 +94,8 @@ class EnigmaTest < Minitest::Test
     cipher = Cipher.new
     enigma = Enigma.new(cipher)
 
-    expected = "yuybeinrxpoaeutlcezni"
-    actual = enigma.encrypt_full_message("test this is encypted", "84332", "08231998")
+    expected = "wyybcmnrvtoacytlaizng"
+    actual = enigma.encrypt_full_message("test this is encypted", "84332", "082398")
     assert_equal expected, actual
   end
 
@@ -104,7 +104,16 @@ class EnigmaTest < Minitest::Test
     enigma = Enigma.new(cipher)
 
     expected = "test this is encypted"
-    actual = enigma.decrypt_full_message("yuybeinrxpoaeutlcezni", "84332", "08231998")
+    actual = enigma.decrypt_full_message("wyybcmnrvtoacytlaizng", "84332", "082398")
+    assert_equal expected, actual
+  end
+
+  def test_message_crack
+    cipher = Cipher.new
+    enigma = Enigma.new(cipher)
+
+    expected = {:cracked_messge => "hello world", :date => date, :cracked_key => key}
+    actual = enigma.crack("hello world", "140419")
     assert_equal expected, actual
   end
 

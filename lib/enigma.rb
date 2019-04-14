@@ -40,4 +40,8 @@ class Enigma
     @cipher.decrypt_slot(message, key, date, 3)
     message
   end
+
+  def crack(cipher_text, date = today)
+  end
+
 end
