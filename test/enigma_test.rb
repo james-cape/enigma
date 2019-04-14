@@ -21,7 +21,7 @@ class EnigmaTest < Minitest::Test
     actual = enigma.encrypt("hello world")[:key].length
     assert_equal expected, actual
 
-    expected = "041219"
+    expected = "130419"
     actual = enigma.encrypt("hello world")[:date]
     assert_equal expected, actual
   end
@@ -42,9 +42,9 @@ class EnigmaTest < Minitest::Test
     enigma = Enigma.new
 
     expected = {
-      :encryption=>"onhavisdyu ",
+      :encryption=>"ojhavesdyq ",
       :key=>"02715",
-      :date=>"041219"
+      :date=>"130419"
     }
     actual = enigma.encrypt("hello world", "02715")
     assert_equal expected, actual
@@ -56,7 +56,7 @@ class EnigmaTest < Minitest::Test
     expected = {
       :decryption=>"hello world",
       :key=>"02715",
-      :date=>"041219"
+      :date=>"130419"
     }
     actual = enigma.decrypt(encrypted[:encryption], "02715")
     assert_equal expected, actual
