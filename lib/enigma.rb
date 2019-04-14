@@ -4,7 +4,7 @@ class Enigma
               :random_key
 
   def initialize
-    @today = Time.new.strftime("%m%d%y")
+    @today = Time.new.strftime("%d%m%y")
     @random_key = 5.times.map{rand(10)}.join
     @raw_alphabet = ("a".."z").to_a << " "
   end

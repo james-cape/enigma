@@ -4,9 +4,7 @@ require 'pry'
 enigma = Enigma.new
 
 puts "Enter file name to encrypt: "
-
-# message.txt
-raw_lines = File.read(gets.chomp).split("\n")
+raw_lines = File.read(gets.chomp).split("\n") # message.txt
 
 encrypted_text = ""
 raw_lines.each do |line|
