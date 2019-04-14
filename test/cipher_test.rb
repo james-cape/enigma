@@ -16,5 +16,13 @@ class CipherTest < Minitest::Test
     assert_instance_of expected, actual
   end
 
+  def test_cipher_starts_with_raw_alphabet
+    cipher = Cipher.new
+
+    expected = ("a".."z").to_a << " "
+    actual = cipher.raw_alphabet
+    assert_equal expected, actual
+  end
+
 
 end
