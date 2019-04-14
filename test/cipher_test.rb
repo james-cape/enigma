@@ -40,19 +40,19 @@ class CipherTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_cipher_encrypts_string_by_position
+  def test_cipher_encrypts_string_by_slot
     cipher = Cipher.new
 
     expected = "kellr would"
-    actual = cipher.encrypt_position("hello world", "02715", "040895", 0)
+    actual = cipher.encrypt_slot("hello world", "02715", "040895", 0)
     assert_equal expected, actual
   end
 
-  def test_cipher_decrypts_string_by_position
+  def test_cipher_decrypts_string_by_slot
     cipher = Cipher.new
 
     expected = "hello world"
-    actual = cipher.decrypt_position("kellr would", "02715", "040895", 0)
+    actual = cipher.decrypt_slot("kellr would", "02715", "040895", 0)
     assert_equal expected, actual
   end
 

@@ -26,18 +26,18 @@ class Enigma
   end
 
   def encrypt_full_message(message, key, date)
-    @cipher.encrypt_position(message, key, date, 0)
-    @cipher.encrypt_position(message, key, date, 1)
-    @cipher.encrypt_position(message, key, date, 2)
-    @cipher.encrypt_position(message, key, date, 3)
+    @cipher.encrypt_slot(message, key, date, 0)
+    @cipher.encrypt_slot(message, key, date, 1)
+    @cipher.encrypt_slot(message, key, date, 2)
+    @cipher.encrypt_slot(message, key, date, 3)
     message
   end
 
   def decrypt_full_message(message, key, date)
-    @cipher.decrypt_position(message, key, date, 0)
-    @cipher.decrypt_position(message, key, date, 1)
-    @cipher.decrypt_position(message, key, date, 2)
-    @cipher.decrypt_position(message, key, date, 3)
+    @cipher.decrypt_slot(message, key, date, 0)
+    @cipher.decrypt_slot(message, key, date, 1)
+    @cipher.decrypt_slot(message, key, date, 2)
+    @cipher.decrypt_slot(message, key, date, 3)
     message
   end
 end
