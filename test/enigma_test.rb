@@ -111,22 +111,24 @@ class EnigmaTest < Minitest::Test
 
 
 
-  # 
-  # def test_finding_shift_order_depending_on_cipher_text_length
-  #   cipher = Cipher.new
-  #   enigma = Enigma.new(cipher)
-  #
-  #   expected = [18, 26, 6, 7]
-  #   actual = enigma.find_key("abcdrdtk")
-  #   assert_equal expected, actual
-  # end
+
+
+
+  def test_putting_abcd_shifts_into_array
+    cipher = Cipher.new
+    enigma = Enigma.new(cipher)
+
+    expected = [-14, -5, -5, 19]
+    actual = enigma.find_offsets("vjqtbeaweqihssi")
+    assert_equal expected, actual
+  end
 
   def test_finding_key
     cipher = Cipher.new
     enigma = Enigma.new(cipher)
 
-    expected = [5, 8, 14, 5]
-    actual = enigma.find_key("vjqtbeaweqihssi")
+    expected = "08304"
+    actual = enigma.find_key("vjqtbeaweqihssi", "291018")
     assert_equal expected, actual
   end
 
