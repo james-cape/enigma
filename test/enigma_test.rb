@@ -18,7 +18,7 @@ class EnigmaTest < Minitest::Test
   def test_encrypt_defaults_with_random_5_digit_key_and_todays_date
     cipher = Cipher.new
     enigma = Enigma.new(cipher)
-    time = Time.new
+    # time = Time.new
 
     expected = 5
     actual = enigma.encrypt("hello world")[:key].length
@@ -132,9 +132,6 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-
-
-
   def test_message_crack_encryption_with_a_date
     cipher = Cipher.new
     enigma = Enigma.new(cipher)
@@ -147,7 +144,6 @@ class EnigmaTest < Minitest::Test
      }
     actual = enigma.encrypt("hello world end", "08304", "291018")
     assert_equal expected, actual
-
     expected = {
       decryption: "hello world end",
       date: "291018",
