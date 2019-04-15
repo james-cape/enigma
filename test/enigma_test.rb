@@ -24,7 +24,7 @@ class EnigmaTest < Minitest::Test
     actual = enigma.encrypt("hello world")[:key].length
     assert_equal expected, actual
 
-    expected = "140419"
+    expected = "150419"
     actual = enigma.encrypt("hello world")[:date]
     assert_equal expected, actual
   end
@@ -49,7 +49,7 @@ class EnigmaTest < Minitest::Test
     expected = {
       :encryption=>"ojhavesdyq ",
       :key=>"02715",
-      :date=>"140419"
+      :date=>"150419"
     }
     actual = enigma.encrypt("hello world", "02715")
     assert_equal expected, actual
@@ -62,7 +62,7 @@ class EnigmaTest < Minitest::Test
     expected = {
       :decryption=>"hello world",
       :key=>"02715",
-      :date=>"140419"
+      :date=>"150419"
     }
     actual = enigma.decrypt(encrypted[:encryption], "02715")
     assert_equal expected, actual
@@ -94,8 +94,8 @@ class EnigmaTest < Minitest::Test
     cipher = Cipher.new
     enigma = Enigma.new(cipher)
 
-    expected = "yuybeinrxpoaeutlcezni"
-    actual = enigma.encrypt_full_message("test this is encypted", "84332", "08231998")
+    expected = "wyybcmnrvtoacytlaizng"
+    actual = enigma.encrypt_full_message("test this is encypted", "84332", "082398")
     assert_equal expected, actual
   end
 
@@ -104,8 +104,82 @@ class EnigmaTest < Minitest::Test
     enigma = Enigma.new(cipher)
 
     expected = "test this is encypted"
-    actual = enigma.decrypt_full_message("yuybeinrxpoaeutlcezni", "84332", "08231998")
+    actual = enigma.decrypt_full_message("wyybcmnrvtoacytlaizng", "84332", "082398")
     assert_equal expected, actual
   end
+
+
+
+
+
+
+
+  def test_putting_abcd_shifts_into_array
+    cipher = Cipher.new
+    enigma = Enigma.new(cipher)
+
+    expected = [-14, -5, -5, 19]
+    actual = enigma.find_offsets("vjqtbeaweqihssi")
+    assert_equal expected, actual
+  end
+
+  def test_finding_key
+    cipher = Cipher.new
+    enigma = Enigma.new(cipher)
+
+    expected = "08304"
+    actual = enigma.find_key("vjqtbeaweqihssi", "291018")
+    assert_equal expected, actual
+  end
+
+
+
+
+  # def test_message_crack_encryption_with_a_date
+  #   cipher = Cipher.new
+  #   enigma = Enigma.new(cipher)
+  #   enigma.encrypt("hello world end", "08304", "291018")
+  #
+  #   expected = {
+  #     encryption: "vjqtbeaweqihssi",
+  #     key: "08304",
+  #     date: "291018"
+  #    }
+  #   actual = enigma.encrypt("hello world end", "08304", "291018")
+  #   assert_equal expected, actual
+  #
+  #   expected = {
+  #     decryption: "hello world end",
+  #     date: "291018",
+  #     key: "08304"
+  #    }
+  #   actual = enigma.crack("vjqtbeaweqihssi", "291018")
+  #   assert_equal expected, actual
+  # end
+
+
+
+  # def test_message_crack_encryption_without_date
+  #   skip
+  #   cipher = Cipher.new
+  #   enigma = Enigma.new(cipher)
+  #   enigma.encrypt("hello world end", "08304", "291018")
+  #
+  #   expected = {
+  #     encryption: "vjqtbeaweqihssi",
+  #     key: "08304",
+  #     date: "291018"
+  #    }
+  #   actual = enigma.encrypt("hello world end", "08304", "291018")
+  #   assert_equal expected, actual
+  #
+  #   expected = {
+  #     decryption: "hello world end",
+  #     date: "# todays date in the format DDMMYY",
+  #     key: "# key used for encryption"
+  #    }
+  #   actual = enigma.crack("vjqtbeaweqihssi")
+  #   assert_equal expected, actual
+  # end
 
 end

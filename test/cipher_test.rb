@@ -20,7 +20,7 @@ class CipherTest < Minitest::Test
     cipher = Cipher.new
 
     expected = ("a".."z").to_a << " "
-    actual = cipher.raw_alphabet
+    actual = cipher.alphabet
     assert_equal expected, actual
   end
 
