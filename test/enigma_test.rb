@@ -111,15 +111,27 @@ class EnigmaTest < Minitest::Test
 
 
 
+  # 
+  # def test_finding_shift_order_depending_on_cipher_text_length
+  #   cipher = Cipher.new
+  #   enigma = Enigma.new(cipher)
+  #
+  #   expected = [18, 26, 6, 7]
+  #   actual = enigma.find_key("abcdrdtk")
+  #   assert_equal expected, actual
+  # end
 
-  def test_finding_shift_order_depending_on_cipher_text_length
+  def test_finding_key
     cipher = Cipher.new
     enigma = Enigma.new(cipher)
 
-    expected = [18, 26, 6, 7]
-    actual = enigma.find_key("abcdrdtk")
+    expected = [5, 8, 14, 5]
+    actual = enigma.find_key("vjqtbeaweqihssi")
     assert_equal expected, actual
   end
+
+
+
 
   # def test_message_crack_encryption_with_a_date
   #   cipher = Cipher.new
