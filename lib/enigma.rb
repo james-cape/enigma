@@ -92,7 +92,13 @@ class Enigma
     "#{first_str}#{second_str[1]}#{third_str[1]}#{fourth_str[1]}"
   end
 
-  
+  def crack(cipher_text, date = today)
+    key_value = find_key(cipher_text, "291018")
+    decryption = decrypt_full_message(cipher_text, key_value, date)
+    { decryption: decryption,
+      date: date,
+      key: key_value }
+  end
 
 
 
