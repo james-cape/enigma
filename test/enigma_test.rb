@@ -135,27 +135,27 @@ class EnigmaTest < Minitest::Test
 
 
 
-  # def test_message_crack_encryption_with_a_date
-  #   cipher = Cipher.new
-  #   enigma = Enigma.new(cipher)
-  #   enigma.encrypt("hello world end", "08304", "291018")
-  #
-  #   expected = {
-  #     encryption: "vjqtbeaweqihssi",
-  #     key: "08304",
-  #     date: "291018"
-  #    }
-  #   actual = enigma.encrypt("hello world end", "08304", "291018")
-  #   assert_equal expected, actual
-  #
-  #   expected = {
-  #     decryption: "hello world end",
-  #     date: "291018",
-  #     key: "08304"
-  #    }
-  #   actual = enigma.crack("vjqtbeaweqihssi", "291018")
-  #   assert_equal expected, actual
-  # end
+  def test_message_crack_encryption_with_a_date
+    cipher = Cipher.new
+    enigma = Enigma.new(cipher)
+    enigma.encrypt("hello world end", "08304", "291018")
+
+    expected = {
+      encryption: "vjqtbeaweqihssi",
+      key: "08304",
+      date: "291018"
+     }
+    actual = enigma.encrypt("hello world end", "08304", "291018")
+    assert_equal expected, actual
+
+    expected = {
+      decryption: "hello world end",
+      date: "291018",
+      key: "08304"
+     }
+    actual = enigma.crack("vjqtbeaweqihssi", "291018")
+    assert_equal expected, actual
+  end
 
 
 

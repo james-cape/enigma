@@ -58,58 +58,46 @@ class Enigma
 
   def find_key(cipher_text, date = today)
 
-
+    check_match = false
 
     first_int = (-find_offsets(cipher_text)[0] - @cipher.last_four(date)[0].to_i)
-    first_str = first_int.to_s.rjust(2,"0")
 
-    second_int = (-find_offsets(cipher_text)[1] - @cipher.last_four(date)[1].to_i)
-    second_str = second_int.to_s.rjust(2,"0")
-    until first_str[1] == second_str[0] || second_str.length < 2
-      second_int += @alphabet.length
+    until check_match == true
+      first_str = first_int.to_s.rjust(2,"0")
+
+      second_int = (-find_offsets(cipher_text)[1] - @cipher.last_four(date)[1].to_i)
       second_str = second_int.to_s.rjust(2,"0")
-    end
+      until first_str[1] == second_str[0] || second_str.length < 2
+        second_int += @alphabet.length
+        second_str = second_int.to_s.rjust(2,"0")
+      end
 
-    third_int = (-find_offsets(cipher_text)[2] - @cipher.last_four(date)[2].to_i)
-    third_str = third_int.to_s.rjust(2,"0")
-    until second_str[1] == third_str[0] || third_str.length < 2
-      third_int += @alphabet.length
+      third_int = (-find_offsets(cipher_text)[2] - @cipher.last_four(date)[2].to_i)
       third_str = third_int.to_s.rjust(2,"0")
-    end
+      until second_str[1] == third_str[0] || third_str.length < 2
+        third_int += @alphabet.length
+        third_str = third_int.to_s.rjust(2,"0")
+      end
 
-    fourth_int = (-find_offsets(cipher_text)[3] - @cipher.last_four(date)[3].to_i)
-    fourth_str = fourth_int.to_s.rjust(2,"0")
-    until third_str[1] == fourth_str[0] || fourth_str.length < 2
-      fourth_int += @alphabet.length
+      fourth_int = (-find_offsets(cipher_text)[3] - @cipher.last_four(date)[3].to_i)
       fourth_str = fourth_int.to_s.rjust(2,"0")
+      until third_str[1] == fourth_str[0] || fourth_str.length < 2
+        fourth_int += @alphabet.length
+        fourth_str = fourth_int.to_s.rjust(2,"0")
+      end
+
+      check_match = first_str[1] == second_str[0] && second_str[1] == third_str[0] && third_str[1] == fourth_str[0]
+      first_int += @alphabet.length if check_match == false
     end
-
-    binding.pry
-    # if first_str[1] == second_str[0] && second_str[1] == third_str[0] && third_str[1] == fourth_str[0]
-    #
-    #   "#{first_str}#{second_str[1]}#{third_str[1]}#{fourth_str[1]}"
-    #
-    # else
-    #   first_int += @alphabet.length
-    # end
-
+    "#{first_str}#{second_str[1]}#{third_str[1]}#{fourth_str[1]}"
   end
 
+  
 
 
-# # Uses key and date to determine shift factor
-#   def shift(key, date, slot)
-#     shift_key = key[slot..(slot + 1)].to_i
-#     shift_offset = last_four(date)[slot].to_i
-#     @alphabet.rotate(shift_key + shift_offset)
-#   end
-#
-# # Applies shift factor to string
-#   def encrypt_slot(message, key, date, slot)
-#     (slot..message.size-1).step(4) do |i|
-#       message[i] = shift(key, date, slot)[@alphabet.find_index(message[i])]
-#     end
-#     message
-#   end
+
+
+
+
 
 end
