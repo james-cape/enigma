@@ -52,9 +52,11 @@ class Enigma
     [shift_1, shift_2, shift_3, shift_4].rotate(cipher_text.size % 4)
   end
 
-  # def find_date_key(cipher_text, date = today)
-  #   find_key(cipher_text).each do |key|
-  # end
+  def find_date_key(cipher_text, date = today)
+    find_key(cipher_text).each do |key|
+
+    end
+  end
 
 
 
