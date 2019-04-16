@@ -1,7 +1,9 @@
 require './lib/enigma'
+require './lib/cipher'
 require 'pry'
 
-enigma = Enigma.new
+cipher = Cipher.new
+enigma = Enigma.new(cipher)
 
 puts "Enter file name to decrypt: "
 encrypted_file_name = gets.chomp # encrypted.txt
