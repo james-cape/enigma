@@ -29,16 +29,31 @@ class Cracker
     end
   end
 
+  def check_match(first_str, second_str, third_str, fourth_str)
+    check_first_set  = first_str[1]  == second_str[0]
+    check_second_set= second_str[1] == third_str[0]
+    check_third_set  = third_str[1]  == fourth_str[0]
+    check_first_set && check_second_set && check_third_set
+  end
+
+  def check_two_digits(first_str, second_str, third_str, fourth_str)
+    check_first_set  = first_str.length < 3
+    check_second_set = second_str.length < 3
+    check_third_set  = third_str.length < 3
+    check_fourth_set = fourth_str.length < 3
+    check_first_set && check_second_set && check_third_set && check_fourth_set
+  end
+
 
   def find_key(cipher_text, date = today)
 
-    check_match = false
-    check_two_digits = false
+    matches = false
+    two_digits = false
 
     first_int = (-find_offsets(cipher_text)[0] - last_four(date)[0].to_i)
 
     first_int += 27 until first_int >= 0
-    until check_match == true && check_two_digits == true
+    until matches == true && two_digits == true
       first_str = first_int.to_s.rjust(2,"0")
 
       second_int = (-find_offsets(cipher_text)[1] - last_four(date)[1].to_i)
@@ -68,9 +83,10 @@ class Cracker
         fourth_str = fourth_int.to_s.rjust(2,"0")
       end
 
-      check_match = first_str[1] == second_str[0] && second_str[1] == third_str[0] && third_str[1] == fourth_str[0]
-      check_two_digits = first_str.length < 3 && second_str.length < 3 && third_str.length < 3 && fourth_str.length < 3
-      first_int += @alphabet.length if check_match == false || check_two_digits == false
+      matches = check_match(first_str, second_str, third_str, fourth_str)
+      two_digits = check_two_digits(first_str, second_str, third_str, fourth_str)
+
+      first_int += @alphabet.length if matches == false || two_digits == false
     end
     "#{first_str}#{second_str[1]}#{third_str[1]}#{fourth_str[1]}"
   end
