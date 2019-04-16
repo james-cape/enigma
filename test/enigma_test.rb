@@ -11,13 +11,15 @@ class EnigmaTest < Minitest::Test
 
   def test_enigma_exists
     cipher = Cipher.new
-    enigma = Enigma.new(cipher)
+    cracker = Cracker.new
+    enigma = Enigma.new(cipher, cracker)
     assert_instance_of Enigma, enigma
   end
 
   def test_encrypt_defaults_with_random_5_digit_key_and_todays_date
     cipher = Cipher.new
-    enigma = Enigma.new(cipher)
+    cracker = Cracker.new
+    enigma = Enigma.new(cipher, cracker)
 
     expected = 5
     actual = enigma.encrypt("hello world")[:key].length
@@ -30,7 +32,8 @@ class EnigmaTest < Minitest::Test
 
   def test_encrypting_message_with_user_input_key_and_date
     cipher = Cipher.new
-    enigma = Enigma.new(cipher)
+    cracker = Cracker.new
+    enigma = Enigma.new(cipher, cracker)
 
     expected = {
       encryption: "keder ohulw",
@@ -43,7 +46,8 @@ class EnigmaTest < Minitest::Test
 
   def test_encrypting_message_with_user_input_key_but_todays_date
     cipher = Cipher.new
-    enigma = Enigma.new(cipher)
+    cracker = Cracker.new
+    enigma = Enigma.new(cipher, cracker)
 
     expected = {
       :encryption=>"ojhavesdyq ",
@@ -56,7 +60,8 @@ class EnigmaTest < Minitest::Test
 
   def test_decrypting_message_with_user_input_key_and_todays_date
     cipher = Cipher.new
-    enigma = Enigma.new(cipher)
+    cracker = Cracker.new
+    enigma = Enigma.new(cipher, cracker)
     encrypted = enigma.encrypt("hello world", "02715")
     expected = {
       :decryption=>"hello world",
@@ -69,7 +74,8 @@ class EnigmaTest < Minitest::Test
 
   def test_encrypting_message_with_random_key_and_todays_date
     cipher = Cipher.new
-    enigma = Enigma.new(cipher)
+    cracker = Cracker.new
+    enigma = Enigma.new(cipher, cracker)
 
     expected = 11
     actual = enigma.encrypt("hello world")[:encryption].length
@@ -90,7 +96,8 @@ class EnigmaTest < Minitest::Test
 
   def test_message_encryption
     cipher = Cipher.new
-    enigma = Enigma.new(cipher)
+    cracker = Cracker.new
+    enigma = Enigma.new(cipher, cracker)
 
     expected = "wyybcmnrvtoacytlaizng"
     actual = enigma.encrypt_full_message("test this is encypted", "84332", "082398")
@@ -99,7 +106,8 @@ class EnigmaTest < Minitest::Test
 
   def test_message_decryption
     cipher = Cipher.new
-    enigma = Enigma.new(cipher)
+    cracker = Cracker.new
+    enigma = Enigma.new(cipher, cracker)
 
     expected = "test this is encypted"
     actual = enigma.decrypt_full_message("wyybcmnrvtoacytlaizng", "84332", "082398")
