@@ -43,5 +43,13 @@ class ShifterTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_shift_alphabet_is_generated
+    shifter = Shifter.new("12345", "140419", 5)
+
+    expected = ["a", "b", "c", "d", "e"]
+    actual = shifter.shift("12345", "140419", 5)[0..4]
+    assert_equal expected, actual
+  end
+
 
 end
