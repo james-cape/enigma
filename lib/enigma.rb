@@ -62,7 +62,7 @@ class Enigma
 
     first_int = (-find_offsets(cipher_text)[0] - @cipher.last_four(date)[0].to_i)
 
-    until first_int > 0
+    until first_int >= 0
       first_int += 27
     end
 
@@ -70,7 +70,7 @@ class Enigma
       first_str = first_int.to_s.rjust(2,"0")
 
       second_int = (-find_offsets(cipher_text)[1] - @cipher.last_four(date)[1].to_i)
-      until second_int > 0
+      until second_int >= 0
         second_int += 27
       end
       second_str = second_int.to_s.rjust(2,"0")
@@ -78,8 +78,9 @@ class Enigma
         second_int += @alphabet.length
         second_str = second_int.to_s.rjust(2,"0")
       end
+
       third_int = (-find_offsets(cipher_text)[2] - @cipher.last_four(date)[2].to_i)
-      until third_int > 0
+      until third_int >= 0
         third_int += 27
       end
       third_str = third_int.to_s.rjust(2,"0")
@@ -89,7 +90,7 @@ class Enigma
       end
 
       fourth_int = (-find_offsets(cipher_text)[3] - @cipher.last_four(date)[3].to_i)
-      until fourth_int > 0
+      until fourth_int >= 0
         fourth_int += 27
       end
       fourth_str = fourth_int.to_s.rjust(2,"0")
@@ -106,6 +107,7 @@ class Enigma
   end
 
   def crack(cipher_text, date = today)
+    # binding.pry
     key_value = find_key(cipher_text, date)
     decryption = decrypt_full_message(cipher_text, key_value, date)
     { decryption: decryption,
