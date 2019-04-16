@@ -64,21 +64,21 @@ class CrackerTest < Minitest::Test
     cracker = Cracker.new
     cipher = Cipher.new
     enigma = Enigma.new(cipher, cracker)
-    enigma.encrypt("this file is the one that should be encrypted end", "26132", "150419")
+    enigma.encrypt("this file is the one that should be encrypted end", "26132", "160419")
 
     expected = {
       encryption: "xtaydrarilayde kd fkde gxlknsfdjdnxfizvxbalkhlxth",
       key: "26132",
-      date: "150419"
+      date: "160419"
      }
-    actual = enigma.encrypt("this file is the one that should be encrypted end", "26132", "150419")
+    actual = enigma.encrypt("this file is the one that should be encrypted end", "26132", "160419")
     assert_equal expected, actual
     expected = {
       decryption: "this file is the one that should be encrypted end",
-      date: "150419",
+      date: "160419",
       key: "26132"
      }
-    actual = enigma.crack("xtaydrarilayde kd fkde gxlknsfdjdnxfizvxbalkhlxth", "150419")
+    actual = enigma.crack("xtaydrarilayde kd fkde gxlknsfdjdnxfizvxbalkhlxth", "160419")
     assert_equal expected, actual
   end
 
