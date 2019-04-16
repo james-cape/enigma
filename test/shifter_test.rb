@@ -2,12 +2,7 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/enigma'
-require './lib/cipher'
 require './lib/shifter'
-require 'date'
-require 'pry'
-require 'mocha/minitest'
 
 class ShifterTest < Minitest::Test
 
