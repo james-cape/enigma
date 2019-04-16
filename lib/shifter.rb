@@ -3,11 +3,9 @@ class Shifter
               :date,
               :slot
 
-  def initialize(key, date, slot)
+  def initialize
     @alphabet = ("a".."z").to_a << " "
-    @key = key
-    @date = date
-    @slot = slot
+
 
   end
 
