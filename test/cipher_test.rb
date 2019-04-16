@@ -5,7 +5,6 @@ require 'minitest/pride'
 require './lib/enigma'
 require './lib/cipher'
 require 'date'
-require 'pry'
 
 class CipherTest < Minitest::Test
   def test_cipher_exists
@@ -22,6 +21,12 @@ class CipherTest < Minitest::Test
     expected = ("a".."z").to_a << " "
     actual = cipher.alphabet
     assert_equal expected, actual
+
+    # cipher = Cipher.new
+    #
+    # expected = ("a".."z").to_a << " "
+    # actual = cipher.alphabet
+    # assert_equal expected, actual
   end
 
   def test_cipher_extracts_last_four_from_date
