@@ -19,6 +19,17 @@ class Cracker
     (date.to_i ** 2).to_s[-4..-1]
   end
 
+
+  def second_int_to_str(cipher_text, date)
+    second_int += 27 until second_int >= 0
+    second_str = second_int.to_s.rjust(2,"0")
+    until first_str[1] == second_str[0] && (second_int < 100 || second_int > 0)
+      second_int += @alphabet.length
+      second_str = second_int.to_s.rjust(2,"0")
+    end
+  end
+
+
   def find_key(cipher_text, date = today)
 
     check_match = false
@@ -26,17 +37,13 @@ class Cracker
 
     first_int = (-find_offsets(cipher_text)[0] - last_four(date)[0].to_i)
 
-    until first_int >= 0
-      first_int += 27
-    end
-
+    first_int += 27 until first_int >= 0
     until check_match == true && check_two_digits == true
       first_str = first_int.to_s.rjust(2,"0")
 
       second_int = (-find_offsets(cipher_text)[1] - last_four(date)[1].to_i)
-      until second_int >= 0
-        second_int += 27
-      end
+
+      second_int += 27 until second_int >= 0
       second_str = second_int.to_s.rjust(2,"0")
       until first_str[1] == second_str[0] && (second_int < 100 || second_int > 0)
         second_int += @alphabet.length
@@ -44,9 +51,8 @@ class Cracker
       end
 
       third_int = (-find_offsets(cipher_text)[2] - last_four(date)[2].to_i)
-      until third_int >= 0
-        third_int += 27
-      end
+
+      third_int += 27 until third_int >= 0
       third_str = third_int.to_s.rjust(2,"0")
       until second_str[1] == third_str[0] && (third_int < 100 || third_int > 0)
         third_int += @alphabet.length
@@ -54,9 +60,8 @@ class Cracker
       end
 
       fourth_int = (-find_offsets(cipher_text)[3] - last_four(date)[3].to_i)
-      until fourth_int >= 0
-        fourth_int += 27
-      end
+
+      fourth_int += 27 until fourth_int >= 0
       fourth_str = fourth_int.to_s.rjust(2,"0")
       until third_str[1] == fourth_str[0] && (fourth_int < 100 || fourth_int > 0)
         fourth_int += @alphabet.length
