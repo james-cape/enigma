@@ -21,7 +21,7 @@ class Enigma
 
   def decrypt(message, key = random_key, date = today)
     components = Hash.new(0)
-    components[:decryption] = decrypt_full_message(message, key, date)
+    components[:decryption] = decrypt_full_message(message.dup, key, date)
     components[:key] = key
     components[:date] = date
     components

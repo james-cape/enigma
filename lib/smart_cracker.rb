@@ -17,14 +17,14 @@ class SmartCracker
     (date.to_i ** 2).to_s[-4..-1]
   end
 
-  def second_int_to_str(cipher_text, date)
-    second_int += 27 until second_int >= 0
-    second_str = second_int.to_s.rjust(2,"0")
-    until first_str[1] == second_str[0] && (second_int < 100 || second_int > 0)
-      second_int += @alphabet.length
-      second_str = second_int.to_s.rjust(2,"0")
-    end
-  end
+  # def second_int_to_str(cipher_text, date)
+  #   second_int += 27 until second_int >= 0
+  #   second_str = second_int.to_s.rjust(2,"0")
+  #   until first_str[1] == second_str[0] && (second_int < 100 || second_int > 0)
+  #     second_int += @alphabet.length
+  #     second_str = second_int.to_s.rjust(2,"0")
+  #   end
+  # end
 
   def check_match(first_str, second_str, third_str, fourth_str)
     check_first_set  = first_str[1]  == second_str[0]
