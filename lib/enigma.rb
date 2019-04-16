@@ -5,7 +5,8 @@ class Enigma
               :random_key
 
   def initialize(cipher, cracker)
-    @today = Time.new.strftime("%d%m%y")
+    @today = Time.now.strftime("%d%m%y")
+    # use mock
     @random_key = 5.times.map{rand(10)}.join
     @cipher = cipher
     @cracker = cracker

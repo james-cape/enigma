@@ -21,6 +21,7 @@ class EnigmaTest < Minitest::Test
     cipher = Cipher.new
     cracker = Cracker.new
     enigma = Enigma.new(cipher, cracker)
+    # time.stubs(:now).returns(16, 04, 19) ??????
 
     expected = 5
     actual = enigma.encrypt("hello world")[:key].length
