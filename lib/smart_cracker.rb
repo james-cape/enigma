@@ -1,5 +1,4 @@
 class SmartCracker
-
   attr_reader :alphabet
 
   def initialize
