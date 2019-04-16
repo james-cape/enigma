@@ -6,6 +6,7 @@ require './lib/enigma'
 require './lib/cipher'
 require 'date'
 require 'pry'
+require 'mocha/minitest'
 
 class EnigmaTest < Minitest::Test
 
@@ -25,14 +26,14 @@ class EnigmaTest < Minitest::Test
     actual = enigma.encrypt("hello world")[:key].length
     assert_equal expected, actual
 
-    expected = "150419"
+    expected = "160419"
     actual = enigma.encrypt("hello world")[:date]
     assert_equal expected, actual
   end
 
   def test_encrypting_message_with_user_input_key_and_date
     cipher = Cipher.new
-    cracker = Cracker.new
+    cracker = mock(cracker)
     enigma = Enigma.new(cipher, cracker)
 
     expected = {
@@ -46,13 +47,13 @@ class EnigmaTest < Minitest::Test
 
   def test_encrypting_message_with_user_input_key_but_todays_date
     cipher = Cipher.new
-    cracker = Cracker.new
+    cracker = mock(cracker)
     enigma = Enigma.new(cipher, cracker)
 
     expected = {
       :encryption=>"ojhavesdyq ",
       :key=>"02715",
-      :date=>"150419"
+      :date=>"160419"
     }
     actual = enigma.encrypt("hello world", "02715")
     assert_equal expected, actual
@@ -60,13 +61,13 @@ class EnigmaTest < Minitest::Test
 
   def test_decrypting_message_with_user_input_key_and_todays_date
     cipher = Cipher.new
-    cracker = Cracker.new
+    cracker = mock(cracker)
     enigma = Enigma.new(cipher, cracker)
     encrypted = enigma.encrypt("hello world", "02715")
     expected = {
       :decryption=>"hello world",
       :key=>"02715",
-      :date=>"150419"
+      :date=>"160419"
     }
     actual = enigma.decrypt(encrypted[:encryption], "02715")
     assert_equal expected, actual
@@ -74,7 +75,7 @@ class EnigmaTest < Minitest::Test
 
   def test_encrypting_message_with_random_key_and_todays_date
     cipher = Cipher.new
-    cracker = Cracker.new
+    cracker = mock(cracker)
     enigma = Enigma.new(cipher, cracker)
 
     expected = 11
