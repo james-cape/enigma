@@ -1,5 +1,4 @@
 class Enigma
-
   attr_reader :today,
               :random_key
 
