@@ -14,4 +14,22 @@ class CrackerTest < Minitest::Test
     assert_instance_of expected, actual
   end
 
+  def test_cracker_has_keys
+    cracker = Cracker.new
+
+    expected = 100000
+    actual = cracker.keys.length
+    assert_equal expected, actual
+  end
+
+  def test_brute_force_technique
+    cipher = Cipher.new
+    enigma = Enigma.new(cipher)
+    cracker = Cracker.new
+
+    expected = "08304"
+    actual = cracker.brute_force("vjqtbeaweqihssi", "291018")
+    assert_equal expected, actual
+  end
+
 end
