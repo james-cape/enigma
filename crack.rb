@@ -1,7 +1,9 @@
 require './lib/enigma'
+require './lib/cipher'
 require 'pry'
 
-enigma = Enigma.new
+cipher = Cipher.new
+enigma = Enigma.new(cipher)
 
 puts "Enter file name to decrypt: "
 encrypted_file_name = gets.chomp # encrypted.txt
@@ -15,7 +17,7 @@ date = gets.chomp
 scrambled_lines = File.read(encrypted_file_name).split("\n")
 cracked_text = ""
 scrambled_lines.each do |line|
-  cracked_text += enigma.decrypt(line, key, date)[:decryption] + "\n"
+  cracked_text += enigma.crack(line, date)[:decryption] + "\n"
 end
 cracked_text.chomp!
 
@@ -23,4 +25,4 @@ cracked_file = File.open(cracked_file_name, "w")
 
 cracked_file.write(cracked_text)
 
-puts "Created '#{cracked_file_name}' with the key #{key} and date #{date}"
+# puts "Created '#{cracked_file_name}' with the key #{key} and date #{date}"
