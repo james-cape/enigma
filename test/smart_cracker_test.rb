@@ -4,16 +4,15 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/enigma'
 require './lib/cipher'
-require './lib/cracker'
+require './lib/smart_cracker'
 require 'date'
 require 'pry'
 
-class CrackerTest < Minitest::Test
-
+class SmartCrackerTest < Minitest::Test
   def test_cracker_exists_and_has_alphabet
-    cracker = Cracker.new
+    cracker = SmartCracker.new
 
-    expected = Cracker
+    expected = SmartCracker
     actual = cracker
     assert_instance_of expected, actual
 
@@ -22,8 +21,25 @@ class CrackerTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_putting_abcd_shifts_into_array
-    cracker = Cracker.new
+  def test_abcd_shifts
+    alphabet = ("a".."z").to_a << " "
+    cracker = SmartCracker.new
+    cipher = Cipher.new
+    enigma = Enigma.new(cipher)
+    scrambled = enigma.encrypt("werahats end", "160419")
+
+    expected = [
+      (alphabet.find_index(" ") - alphabet.find_index(scrambled[:encryption][-4])),
+      (alphabet.find_index("e") - alphabet.find_index(scrambled[:encryption][-3])),
+      (alphabet.find_index("n") - alphabet.find_index(scrambled[:encryption][-2])),
+      (alphabet.find_index("d") - alphabet.find_index(scrambled[:encryption][-1]))
+      ]
+    actual = cracker.find_offsets(scrambled[:encryption])
+    assert_equal expected, actual
+  end
+
+  def test_putting_abcd_shifts_into_array_
+    cracker = SmartCracker.new
 
     expected = [-14, -5, -5, 19]
     actual = cracker.find_offsets("vjqtbeaweqihssi")
@@ -31,7 +47,7 @@ class CrackerTest < Minitest::Test
   end
 
   def test_finding_key
-    cracker = Cracker.new
+    cracker = SmartCracker.new
 
     expected = "08304"
     actual = cracker.find_key("vjqtbeaweqihssi", "291018")
@@ -39,7 +55,7 @@ class CrackerTest < Minitest::Test
   end
 
   def test_message_crack_encryption_with_a_date
-    cracker = Cracker.new
+    cracker = SmartCracker.new
     cipher = Cipher.new
     enigma = Enigma.new(cipher, cracker)
     enigma.encrypt("hello world end", "08304", "291018")
@@ -61,7 +77,7 @@ class CrackerTest < Minitest::Test
   end
 
   def test_message_crack_encryption_with_a_date_and_different_string
-    cracker = Cracker.new
+    cracker = SmartCracker.new
     cipher = Cipher.new
     enigma = Enigma.new(cipher, cracker)
     enigma.encrypt("this file is the one that should be encrypted end", "26132", "160419")
@@ -83,8 +99,7 @@ class CrackerTest < Minitest::Test
   end
 
   def test_message_crack_encryption_without_date
-    # skip
-    cracker = Cracker.new
+    cracker = SmartCracker.new
     cipher = Cipher.new
     enigma = Enigma.new(cipher, cracker)
     enigma.encrypt("hello world end", "08304", "291018")
