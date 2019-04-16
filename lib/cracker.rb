@@ -4,7 +4,6 @@ class Cracker
 
   def initialize
     @alphabet = ("a".."z").to_a << " "
-
   end
 
   def find_offsets(cipher_text)
