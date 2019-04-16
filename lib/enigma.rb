@@ -1,10 +1,9 @@
-require 'pry'
 class Enigma
 
   attr_reader :today,
               :random_key
 
-  def initialize(cipher, cracker)
+  def initialize(cipher, cracker = nil)
     @today = Time.now.strftime("%d%m%y")
     # use mock
     @random_key = 5.times.map{rand(10)}.join
