@@ -26,7 +26,7 @@ class CrackerTest < Minitest::Test
     cracker = Cracker.new
 
     expected = "08304"
-    actual = cracker.brute_force("vjqtbeaweqihssi", "291018")
+    actual = cracker.find_key("vjqtbeaweqihssi", "291018")
     assert_equal expected, actual
   end
 end
