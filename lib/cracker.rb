@@ -8,7 +8,7 @@ class Cracker
     @enigma = Enigma.new(@cipher)
   end
 
-  def brute_force(message, date = today)
+  def find_key(message, date = today)
     @keys.find do |integer_key|
       string_key = integer_key.to_s.rjust(5, "0")
       @enigma.decrypt(message, string_key, date)[:decryption][-4..-1] == " end"
