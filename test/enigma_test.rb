@@ -2,18 +2,19 @@ require 'simplecov'
 SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
+require './lib/shifter'
 require './lib/enigma'
 require './lib/cipher'
-require './lib/shifter'
 require 'date'
 require 'pry'
-require 'mocha/minitest'
 
 class EnigmaTest < Minitest::Test
-
   attr_reader :cipher
+
   def setup
     @cipher = Cipher.new
+    @today = Time.now.strftime("%d%m%y")
   end
 
   def test_enigma_exists
@@ -23,14 +24,12 @@ class EnigmaTest < Minitest::Test
 
   def test_encrypt_defaults_with_random_5_digit_key_and_todays_date
     enigma = Enigma.new(cipher)
-    time = mock
-    time.stubs(:now).returns("101010")
 
     expected = 5
     actual = enigma.encrypt("hello world")[:key].length
     assert_equal expected, actual
 
-    expected = "160419"
+    expected = @today
     actual = enigma.encrypt("hello world")[:date]
     assert_equal expected, actual
   end
@@ -55,7 +54,7 @@ class EnigmaTest < Minitest::Test
     expected = {
       :encryption=>"ojhavesdyq ",
       :key=>"02715",
-      :date=>"160419"
+      :date=> @today
     }
     actual = enigma.encrypt("hello world", "02715")
     assert_equal expected, actual
@@ -68,7 +67,7 @@ class EnigmaTest < Minitest::Test
     expected = {
       :decryption=>"hello world",
       :key=>"02715",
-      :date=>"160419"
+      :date=> @today
     }
     actual = enigma.decrypt(encrypted[:encryption], "02715")
     assert_equal expected, actual
