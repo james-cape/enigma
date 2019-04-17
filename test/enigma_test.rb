@@ -34,7 +34,7 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_encrypting_message_with_user_input_key_and_date
+  def test_encrypting_text_with_user_input_key_and_date
     enigma = Enigma.new
 
     expected = {
@@ -46,7 +46,7 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_decrypting_message_with_user_input_key_and_date
+  def test_decrypting_text_with_user_input_key_and_date
     enigma = Enigma.new
 
     expected = {
@@ -58,7 +58,7 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_encrypting_message_with_user_input_key_but_todays_date
+  def test_encrypting_text_with_user_input_key_but_todays_date
     enigma = Enigma.new
 
     expected = {
@@ -70,7 +70,7 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_decrypting_message_with_user_input_key_and_todays_date
+  def test_decrypting_text_with_user_input_key_and_todays_date
     enigma = Enigma.new
     encrypted = enigma.encrypt("hello world", "02715")
     expected = {
@@ -82,7 +82,7 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_decrypting_message_with_special_characters
+  def test_decrypting_text_with_special_characters
     enigma = Enigma.new
     encrypted = enigma.encrypt("hel.lo wo$rld!", "02715")
     expected = {
@@ -94,7 +94,7 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_decrypting_message_with_capitalizations
+  def test_decrypting_text_with_capitalizations
     enigma = Enigma.new
     encrypted = enigma.encrypt("HELLO world", "02715")
     expected = {
@@ -106,7 +106,7 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_encrypting_message_with_random_key_and_todays_date
+  def test_encrypting_text_with_random_key_and_todays_date
     enigma = Enigma.new
 
     expected = 11
@@ -126,19 +126,31 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_message_encryption
+  def test_text_encryption
     enigma = Enigma.new
 
     expected = "wyybcmnrvtoacytlaizng"
-    actual = enigma.encrypt_full_message("test this is encypted", "84332", "082398")
+    actual = enigma.encrypt_text("test this is encypted", "84332", "082398")
     assert_equal expected, actual
   end
 
-  def test_message_decryption
+  def test_text_decryption
     enigma = Enigma.new
 
     expected = "test this is encypted"
-    actual = enigma.decrypt_full_message("wyybcmnrvtoacytlaizng", "84332", "082398")
+    actual = enigma.decrypt_text("wyybcmnrvtoacytlaizng", "84332", "082398")
+    assert_equal expected, actual
+  end
+
+  def test_text_crack
+    enigma = Enigma.new(Cracker.new)
+
+    expected = {
+      :decryption=>"hello world end",
+      :date=>"291018",
+      :key=>"08304"
+    }
+    actual = enigma.crack("vjqtbeaweqihssi", "291018")
     assert_equal expected, actual
   end
 
