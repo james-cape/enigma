@@ -2,18 +2,17 @@ class Enigma
   attr_reader :today,
               :random_key
 
-  def initialize(cipher, cracker = nil)
+  def initialize(cracker = nil)
     @today = Time.now.strftime("%d%m%y")
-    # use mock
     @random_key = 5.times.map{rand(10)}.join
-    @cipher = cipher
+    @cipher = Cipher.new
     @cracker = cracker
     @alphabet = ("a".."z").to_a << " "
   end
 
   def encrypt(message, key = random_key, date = today)
     components = Hash.new(0)
-    components[:encryption] = encrypt_full_message(message, key, date)
+    components[:encryption] = encrypt_full_message(message.downcase, key, date)
     components[:key] = key
     components[:date] = date
     components
@@ -21,7 +20,7 @@ class Enigma
 
   def decrypt(message, key = random_key, date = today)
     components = Hash.new(0)
-    components[:decryption] = decrypt_full_message(message.dup, key, date)
+    components[:decryption] = decrypt_full_message(message.downcase.dup, key, date)
     components[:key] = key
     components[:date] = date
     components

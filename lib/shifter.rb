@@ -5,8 +5,6 @@ class Shifter
 
   def initialize
     @alphabet = ("a".."z").to_a << " "
-
-
   end
 
   def last_four(date)
