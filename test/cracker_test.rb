@@ -3,8 +3,14 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/cracker'
+require './lib/cipher'
 
 class CrackerTest < Minitest::Test
+  attr_reader :cipher
+
+  def setup
+    @cipher = Cipher.new
+  end
 
   def test_cracker_exists
     cracker = Cracker.new
@@ -22,11 +28,19 @@ class CrackerTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_brute_force_technique
+  def test_brute_force_find_key_technique
     cracker = Cracker.new
 
     expected = "08304"
     actual = cracker.find_key("vjqtbeaweqihssi", "291018")
     assert_equal expected, actual
   end
+
+  # def test_brute_force_find_key_technique_without_date
+  #   cracker = Cracker.new
+  #
+  #   expected = "08304"
+  #   actual = cracker.find_key("vjqtbeaweqihssi")
+  #   assert_equal expected, actual
+  # end
 end
