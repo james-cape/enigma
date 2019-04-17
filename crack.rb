@@ -1,9 +1,12 @@
-require './lib/enigma'
+require './lib/cracker'
 require './lib/cipher'
-require 'pry'
+require './lib/shifter'
+require './lib/enigma'
+
 
 cipher = Cipher.new
-enigma = Enigma.new(cipher)
+cracker = Cracker.new
+enigma = Enigma.new(cracker)
 
 puts "Enter file name to decrypt: "
 encrypted_file_name = gets.chomp # encrypted.txt
@@ -16,6 +19,8 @@ date = gets.chomp
 
 scrambled_lines = File.read(encrypted_file_name).split("\n")
 cracked_text = ""
+key = enigma.crack(scrambled_lines[0], date)[:key]
+require 'pry'; binding.pry
 scrambled_lines.each do |line|
   cracked_text += enigma.crack(line, date)[:decryption] + "\n"
 end
@@ -25,4 +30,4 @@ cracked_file = File.open(cracked_file_name, "w")
 
 cracked_file.write(cracked_text)
 
-# puts "Created '#{cracked_file_name}' with the key #{key} and date #{date}"
+puts "Created '#{cracked_file_name}' with the key #{key} and date #{date}"
