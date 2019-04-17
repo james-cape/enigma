@@ -4,6 +4,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/cracker'
 require './lib/cipher'
+require './lib/shifter'
+require './lib/enigma'
 
 class CrackerTest < Minitest::Test
   attr_reader :cipher
