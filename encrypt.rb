@@ -1,6 +1,7 @@
-require './lib/enigma'
+require './lib/cracker'
 require './lib/cipher'
-require 'pry'
+require './lib/shifter'
+require './lib/enigma'
 
 cipher = Cipher.new
 enigma = Enigma.new(cipher)
