@@ -20,7 +20,6 @@ date = gets.chomp
 scrambled_lines = File.read(encrypted_file_name).split("\n")
 cracked_text = ""
 key = enigma.crack(scrambled_lines[0], date)[:key]
-require 'pry'; binding.pry
 scrambled_lines.each do |line|
   cracked_text += enigma.crack(line, date)[:decryption] + "\n"
 end
