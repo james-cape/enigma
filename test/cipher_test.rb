@@ -3,6 +3,7 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/cipher'
+require './lib/shifter'
 require 'date'
 
 class CipherTest < Minitest::Test
