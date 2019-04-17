@@ -12,7 +12,7 @@ class Enigma
 
   def encrypt(message, key = random_key, date = today)
     components = Hash.new(0)
-    components[:encryption] = encrypt_full_message(message.downcase, key, date)
+    components[:encryption] = encrypt_full_message(message.downcase.dup, key, date)
     components[:key] = key
     components[:date] = date
     components
@@ -42,7 +42,7 @@ class Enigma
     message
   end
 
-  def crack(cipher_text, date = today)
+  def crack(cipher_text, date = @today)
     key_value = @cracker.find_key(cipher_text, date)
     decryption = decrypt_full_message(cipher_text, key_value, date)
     { decryption: decryption,
