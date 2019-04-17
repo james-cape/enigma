@@ -35,7 +35,6 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_encrypting_message_with_user_input_key_and_date
-    cracker = mock(cracker)
     enigma = Enigma.new
 
     expected = {
@@ -47,8 +46,19 @@ class EnigmaTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_decrypting_message_with_user_input_key_and_date
+    enigma = Enigma.new
+
+    expected = {
+      decryption: "hello world",
+      key: "02715",
+      date: "040895"
+     }
+    actual = enigma.decrypt("keder ohulw", "02715", "040895")
+    assert_equal expected, actual
+  end
+
   def test_encrypting_message_with_user_input_key_but_todays_date
-    cracker = mock(cracker)
     enigma = Enigma.new
 
     expected = {
@@ -61,7 +71,6 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_decrypting_message_with_user_input_key_and_todays_date
-    cracker = mock(cracker)
     enigma = Enigma.new
     encrypted = enigma.encrypt("hello world", "02715")
     expected = {
@@ -74,7 +83,6 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_decrypting_message_with_special_characters
-    cracker = mock(cracker)
     enigma = Enigma.new
     encrypted = enigma.encrypt("hel.lo wo$rld!", "02715")
     expected = {
@@ -87,7 +95,6 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_decrypting_message_with_capitalizations
-    cracker = mock(cracker)
     enigma = Enigma.new
     encrypted = enigma.encrypt("HELLO world", "02715")
     expected = {
@@ -100,7 +107,6 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_encrypting_message_with_random_key_and_todays_date
-    cracker = mock(cracker)
     enigma = Enigma.new
 
     expected = 11
