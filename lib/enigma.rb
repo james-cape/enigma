@@ -4,7 +4,6 @@ class Enigma
 
   def initialize(cipher, cracker = nil)
     @today = Time.now.strftime("%d%m%y")
-    # use mock
     @random_key = 5.times.map{rand(10)}.join
     @cipher = cipher
     @cracker = cracker
@@ -44,7 +43,7 @@ class Enigma
   end
 
   def crack(cipher_text, date = today)
-    key_value = @cracker.find_key(cipher_text, date)
+    key_value = @cracker.brute_force(cipher_text, date)
     decryption = decrypt_full_message(cipher_text, key_value, date)
     { decryption: decryption,
       date: date,
